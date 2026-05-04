@@ -8,7 +8,9 @@ def train_and_evaluate_model(csv_path):
         df = pd.read_csv(csv_path)
         
         # Features & Target
-        X = df[['Job Title', 'Experience Level', 'Salary']]
+        # The 'Job Title' is now a string, so we must encode it.
+        X_raw = df[['Job Title', 'Experience Level', 'Salary']]
+        X = pd.get_dummies(X_raw, columns=['Job Title'])
         y = df['Location']
         
         # Split (80% training, 20% testing)
